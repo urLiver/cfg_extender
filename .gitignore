@@ -1,0 +1,11 @@
+*.sln
+*.suo
+*.vcxproj
+*.filters
+*.user
+*.a
+*.txt
+
+src/PS3_Release/
+src/cfg_extender/PS3_Release/
+src/.vs/
