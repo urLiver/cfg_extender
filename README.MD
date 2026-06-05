@@ -1,4 +1,4 @@
-The Code for the .sprx in this repo aims to enhance the functionality of .cfg on old on the ps3
+The Code for the .sprx in this repo aims to enhance the functionality of .cfg on old cods on the ps3
 
 ### Supported Games:
 1. Call of Duty - Ghost
