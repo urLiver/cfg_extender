@@ -1,0 +1,11 @@
+#pragma once
+
+#ifdef ISGHOST
+#include "../ghost/utils.hpp"
+#endif
+
+#include <cell/cell_fs.h>
+
+void WriteFile( const char* path, const char* fmt, ... );
+
+void LogWrite( const char* fmt, ... );

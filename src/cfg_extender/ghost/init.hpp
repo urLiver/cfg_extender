@@ -2,6 +2,7 @@
 
 #include "cmd_args.hpp"
 #include "commands.hpp"
+#include "rendering.hpp"
 
 #include "../utils/webman.hpp"
 

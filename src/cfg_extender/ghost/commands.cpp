@@ -1,6 +1,5 @@
 #include "commands.hpp"
 
-
 cmd_function_s Cmd_Vstr_VAR;
 void Cmd_Vstr( void ) 
 {
@@ -21,33 +20,17 @@ void Cmd_Vstr( void )
 			}
 			else
 			{
-				Com_Printf( "%s is not a string-based dvar, type: %i\n", dvar->name, dvar->type );
+				LogWrite( "%s is not a string-based dvar, type: %i\n", dvar->name, dvar->type );
 			}
 		}
 		else
 		{
-			Com_Printf( "%s doesn't exist\n", string );
+			LogWrite( "%s doesn't exist\n", string );
 		}
 	}
 	else
 	{
-		Com_Printf( "vstr <variablename> : execute a variable command, argc: %i\n", ArgC() );
-	}
-}
-
-cmd_function_s Cmd_DvarRegisterString_VAR;
-void Cmd_DvarRegisterString( void )
-{
-	if ( ArgC() == 3 )
-	{
-		const char* name = ArgV( 1 );
-		const char* value = ArgV( 1 );
-
-		Dvar_RegisterString( name, value, 0 );
-	}
-	else
-	{
-		Com_Printf( "dvar_string <variablename> <variablevalue> : set a dvar string, argc: %i\n", ArgC() );
+		LogWrite( "vstr <variablename> : execute a variable command, argc: %i\n", ArgC() );
 	}
 }
 
@@ -62,7 +45,7 @@ void Cmd_iPrintLn( void )
 	}
 	else
 	{
-		Com_Printf( "iprintln <message> : prints a message on the screen, argc: %i\n", ArgC() );
+		LogWrite( "iprintln <message> : prints a message on the screen, argc: %i\n", ArgC() );
 	}
 }
 
@@ -77,7 +60,7 @@ void Cmd_iPrintLnBold( void )
 	}
 	else
 	{
-		Com_Printf( "iprintlnbold <message> : prints a message on the screen, argc: %i\n", ArgC() );
+		LogWrite( "iprintlnbold <message> : prints a message on the screen, argc: %i\n", ArgC() );
 	}
 }
 
@@ -112,7 +95,7 @@ void Cmd_ExecFromDisk( void )
 				}
 				else
 				{
-					Com_Printf( "%s cloudn't read file content\n", file_path );
+					LogWrite( "%s cloudn't read file content\n", file_path );
 				}
 
 				_sys_free( space );
@@ -120,38 +103,226 @@ void Cmd_ExecFromDisk( void )
 			}
 			else
 			{
-				Com_Printf( "%s cloudn't get file size\n", file_path );
+				LogWrite( "%s cloudn't get file size\n", file_path );
 			}
 		}
 		else
 		{
-			Com_Printf( "%s doesn't exist\n", file_path );
+			LogWrite( "%s doesn't exist\n", file_path );
 		}
 
 		cellFsClose( file_descriptor );
 	}
 	else
 	{
-		Com_Printf( "execfromdisk <filepath> : loads a file into memory and runs it, argc: %i\n", ArgC() );
+		LogWrite( "execfromdisk <filepath> : loads a file into memory and runs it, argc: %i\n", ArgC() );
 	}
 }
 
-/*
-Planned addons: 
+cmd_function_s Cmd_DvarRegisterString_VAR;
+void Cmd_DvarRegisterString( void )
+{
+	if ( ArgC() == 3 )
+	{
+		Dvar_RegisterString( ArgV( 1 ), ArgV( 2 ), 0 );
+	}
+	else
+	{
+		LogWrite( "dvar_string <dvar> <value> : set a dvar string, argc: %i\n", ArgC() );
+	}
+}
 
-text				text x y font size r g b a
-rect				x y w h r g b a
-dumpassetxheader	void
-dumpcmds			void
-dumpdvars			void
+cmd_function_s Cmd_DvarRegisterInt_VAR;
+void Cmd_DvarRegisterInt( void )
+{
+	if ( ArgC() == 5 )
+	{
+		Dvar_RegisterInt( ArgV( 1 ), StringToInt( ArgV( 2 ) ), StringToInt( ArgV( 3 ) ), StringToInt( ArgV( 4 ) ), 0 );
+	}
+	else
+	{
+		LogWrite( "dvar_int <dvar> <value> <min> <max> : set a dvar string, argc: %i\n", ArgC() );
+	}
+}
 
-gravity				value
-speed				value
-jumpheight			value 
-For games that dont have the dvars like g_speed
+cmd_function_s Cmd_DvarRegisterFloat_VAR;
+void Cmd_DvarRegisterFloat( void )
+{
+	if ( ArgC() == 5 )
+	{
+		Dvar_RegisterFloat( ArgV( 1 ), StringToFloat( ArgV( 2 ) ), StringToFloat( ArgV( 3 ) ), StringToFloat( ArgV( 4 ) ), 0 );
+	}
+	else
+	{
+		LogWrite( "dvar_float <dvar> <value> <min> <max> : set a dvar string, argc: %i\n", ArgC() );
+	}
+}
 
-dvar_vector
-dvar_float
-...
+cmd_function_s Cmd_DvarRegisterBool_VAR;
+void Cmd_DvarRegisterBool( void )
+{
+	if ( ArgC() == 3 )
+	{
+		Dvar_RegisterBool( ArgV( 1 ), StringToInt( ArgV( 2 ) ), 0 );
+	}
+	else
+	{
+		LogWrite( "dvar_bool <dvar> <value> : set a dvar string, argc: %i\n", ArgC() );
+	}
+}
 
-*/
+cmd_function_s Cmd_DvarRegisterVector_VAR;
+void Cmd_DvarRegisterVector( void )
+{
+	if ( ArgC() == 7 )
+	{
+		Dvar_RegisterVec3( ArgV( 1 ), StringToFloat( ArgV( 2 ) ), StringToFloat( ArgV( 3 ) ), StringToFloat( ArgV( 4 ) ), StringToFloat( ArgV( 5 ) ), StringToFloat( ArgV( 6 ) ), 0 );
+	}
+	else
+	{
+		LogWrite( "dvar_vector <dvar> <x> <y> <z> <min> <max> : set a dvar string, argc: %i\n", ArgC() );
+	}
+}
+
+cmd_function_s Cmd_DvarRegisterVectorColor_VAR;
+void Cmd_DvarRegisterVectorColor( void )
+{
+	if ( ArgC() == 6 )
+	{
+		Dvar_RegisterVec3Color( ArgV( 1 ), StringToFloat( ArgV( 2 ) ), StringToFloat( ArgV( 3 ) ), StringToFloat( ArgV( 4 ) ), StringToFloat( ArgV( 5 ) ), 0 );
+	}
+	else
+	{
+		LogWrite( "dvar_vectorcolor <dvar> <x> <y> <z> <max> : set a dvar string, argc: %i\n", ArgC() );
+	}
+}
+
+cmd_function_s Cmd_DumpCommands_VAR;
+void Cmd_DumpCommands( void )
+{
+	if( ArgC() == 1 )
+	{
+		cmd_function_s* command;
+		for( command = ( cmd_function_s* )0x1063D28; command != NULL; command = command->next )
+		{
+			WriteFile( "/dev_hdd0/tmp/cfg_extender.command_dump", "%s\n", command->name );
+		}
+	}
+	else
+	{
+		LogWrite( "dump_commands called with arguments, while it shouldnt have any, argc: %i\n", ArgC() );
+	}
+}
+
+cmd_function_s Cmd_DumpDvars_VAR;
+void Cmd_DumpDvars( void )
+{
+	if( ArgC() == 1 )
+	{
+		DumpDvars();
+	}
+	else
+	{
+		LogWrite( "dump_dvar called with arguments, while it shouldnt have any, argc: %i\n", ArgC() );
+	}
+}
+
+cmd_function_s Cmd_MemChar_VAR;
+void Cmd_MemChar( void )
+{
+	if( ArgC() == 3 )
+	{
+		unsigned int offset = StringToHex( ArgV( 1 ) );
+		unsigned int byte = StringToHex( ArgV( 2 ) );
+
+		*( char* )offset = byte;
+	}
+	else
+	{
+		LogWrite( "mem_char <offset> <byte> : write a single byte to an offset, argc: %i\n", ArgC() );
+	}
+}
+
+cmd_function_s Cmd_MemInt_VAR;
+void Cmd_MemInt( void )
+{
+	if( ArgC() == 3 )
+	{
+		unsigned int offset = StringToHex( ArgV( 1 ) );
+		int value = StringToInt( ArgV( 2 ) );
+
+		*( int* )offset = value;
+	}
+	else
+	{
+		LogWrite( "mem_int <offset> <value> : write an int to an offset, argc: %i\n", ArgC() );
+	}
+}
+
+cmd_function_s Cmd_MemFloat_VAR;
+void Cmd_MemFloat( void )
+{
+	if( ArgC() == 3 )
+	{
+		unsigned int offset = StringToHex( ArgV( 1 ) );
+		float value = StringToFloat( ArgV( 2 ) );
+
+		*( float* )offset = value;
+	}
+	else
+	{
+		LogWrite( "mem_float <offset> <value> : write an float to an offset, argc: %i\n", ArgC() );
+	}
+}
+
+cmd_function_s Cmd_ClearTexts_VAR;
+void Cmd_ClearTexts( void )
+{
+	if( ArgC() == 1 )
+	{
+		ClearTexts();
+	}
+	else
+	{
+		LogWrite( "clear_texts called with arguments, while it shouldnt have any, argc: %i\n", ArgC() );
+	}
+}
+
+cmd_function_s Cmd_ClearRects_VAR;
+void Cmd_ClearRects( void )
+{
+	if( ArgC() == 1 )
+	{
+		ClearRects();
+	}
+	else
+	{
+		LogWrite( "clear_rects called with arguments, while it shouldnt have any, argc: %i\n", ArgC() );
+	}
+}
+
+cmd_function_s Cmd_Text_VAR;
+void Cmd_Text( void )
+{
+	if( ArgC() == 10 )
+	{
+		AddText( cmd_args->localClientNum[ cmd_args->nesting ], ArgV( 1 ), StringToInt( ArgV( 2 ) ), StringToInt( ArgV( 3 ) ), ArgV( 4 ), StringToFloat( ArgV( 5 ) ), StringToFloat( ArgV( 6 ) ), StringToFloat( ArgV( 7 ) ), StringToFloat( ArgV( 8 ) ), StringToFloat( ArgV( 9 ) ) );
+	}
+	else
+	{
+		LogWrite( "text <text> <x> <y> <font> <size> <r> <g> <b> <a> : renders text to the screen, argc: %i\n", ArgC() );
+	}
+}
+
+cmd_function_s Cmd_Rect_VAR;
+void Cmd_Rect( void )
+{
+	if( ArgC() == 10 )
+	{
+		AddRect( cmd_args->localClientNum[ cmd_args->nesting ], StringToInt( ArgV( 1 ) ), StringToInt( ArgV( 2 ) ), StringToInt( ArgV( 3 ) ), StringToInt( ArgV( 4 ) ), ArgV( 5 ), StringToFloat( ArgV( 6 ) ), StringToFloat( ArgV( 7 ) ), StringToFloat( ArgV( 8 ) ), StringToFloat( ArgV( 9 ) ) );
+	}
+	else
+	{
+		LogWrite( "rect <x> <y> <w> <h> <material> <r> <g> <b> <a> : renders a rect to the screen, argc: %i\n", ArgC() );
+	}
+}

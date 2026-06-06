@@ -26,19 +26,28 @@ WEAK libpsutil::symbol<char*( const char* format, ... )>va{ 0x38DC30 };
 WEAK libpsutil::symbol<void( errorParm_t code, const char *fmt, ... )>Com_Error{ 0x588100 };
 WEAK libpsutil::symbol<void( int localClientNum, const char *text )>CG_GameMessage{ 0x5BB454 };
 WEAK libpsutil::symbol<void( int localClientNum, const char *text )>CG_GameMessageBold{ 0x5A9F14 };
+WEAK libpsutil::symbol<int( const char *text, const char* fmt, ... )>_sscanf{ 0x7763D4 };
 
-static void Com_Printf( const char* fmt, ... )
+static unsigned int StringToHex( const char* string )
 {
-    char dest[ 256 ];
-    va_list vargs;
+    unsigned int ret = 0;
+    _sscanf( string, "%x", &ret );
 
-    va_start( vargs, fmt );
+    return ret;
+}
 
-    Com_vsnprintf( dest, sizeof( dest ), fmt, vargs );
+static int StringToInt( const char* string )
+{
+	int ret = 0;
+	_sscanf( string, "%i", &ret );
 
-    char *msg = dest;
+	return ret;
+}
 
-    WebmanNotify( dest );
+static float StringToFloat( const char* string )
+{
+	float ret = 0;
+	_sscanf( string, "%f", &ret );
 
-    va_end( vargs );
+	return ret;
 }

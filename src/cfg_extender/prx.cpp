@@ -28,7 +28,7 @@ extern "C" int Entry( void )
 	
 	sys_ppu_thread_create( &id, []( uint64_t ) 
 	{
-		sys_timer_usleep( 35000000 );
+		sys_timer_usleep( 15000000 );
 	
 		OnStart();
 
