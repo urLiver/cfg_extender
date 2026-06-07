@@ -326,3 +326,55 @@ void Cmd_Rect( void )
 		LogWrite( "rect <x> <y> <w> <h> <material> <r> <g> <b> <a> : renders a rect to the screen, argc: %i\n", ArgC() );
 	}
 }
+
+bool key_toggled_table[ 4 ][ 128 ] = { 0 }; 
+std::string key_cmd_table[ 4 ][ 128 ] = { std::string( "" ) }; 
+cmd_function_s Cmd_BindCmd_VAR;
+void Cmd_BindCmd( void )
+{
+	if( ArgC() == 3 )
+	{
+		int key = Key_StringToKeynum( ArgV( 1 ) );
+
+		if( key != -1 )
+		{
+			key = std::tolower( key );
+
+			key_toggled_table[ cmd_args->localClientNum[ cmd_args->nesting ] ][ key ] = 1;
+
+			key_cmd_table[ cmd_args->localClientNum[ cmd_args->nesting ] ][ key ] = std::string( ArgV( 2 ) );
+		}
+		else
+		{
+			LogWrite( "invalid key for %s", ArgV( 1 ) );
+		}
+	}
+	else
+	{
+		LogWrite( "bind_cmd <key> <cmd> : binds a command to a key, argc: %i\n", ArgC() );
+	}
+}
+
+cmd_function_s Cmd_UnbindCmd_VAR;
+void Cmd_UnbindCmd( void )
+{
+	if( ArgC() == 2 )
+	{
+		int key = Key_StringToKeynum( ArgV( 1 ) );
+
+		if( key != -1 )
+		{
+			key = std::tolower( key );
+
+			key_toggled_table[ cmd_args->localClientNum[ cmd_args->nesting ] ][ key ] = 0;
+		}
+		else
+		{
+			LogWrite( "invalid key for %s", ArgV( 1 ) );
+		}
+	}
+	else
+	{
+		LogWrite( "unbind_cmd <key> : unbinds a command from a key, argc: %i\n", ArgC() );
+	}
+}

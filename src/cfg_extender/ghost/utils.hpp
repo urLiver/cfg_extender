@@ -27,6 +27,7 @@ WEAK libpsutil::symbol<void( errorParm_t code, const char *fmt, ... )>Com_Error{
 WEAK libpsutil::symbol<void( int localClientNum, const char *text )>CG_GameMessage{ 0x5BB454 };
 WEAK libpsutil::symbol<void( int localClientNum, const char *text )>CG_GameMessageBold{ 0x5A9F14 };
 WEAK libpsutil::symbol<int( const char *text, const char* fmt, ... )>_sscanf{ 0x7763D4 };
+WEAK libpsutil::symbol<int( const char *str )>Key_StringToKeynum{ 0x18EEF8 };
 
 static unsigned int StringToHex( const char* string )
 {
