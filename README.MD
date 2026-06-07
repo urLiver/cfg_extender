@@ -21,6 +21,8 @@ Call of Duty - Ghost
 - clear_rects
 - text &lt;text&gt; &lt;x&gt; &lt;y&gt; &lt;font&gt; &lt;size&gt; &lt;r&gt; &lt;g&gt; &lt;b&gt; &lt;a&gt;
 - rect &lt;x&gt; &lt;y&gt; &lt;w&gt; &lt;h&gt; &lt;material&gt; &lt;r&gt; &lt;g&gt; &lt;b&gt; &lt;a&gt;
+- bind_cmd &lt;key&gt &lt;command&gt
+- unbind_cmd &lt;key&gt
 
 ### How to build
 1. Take all Files for the Game you want to build the .sprx.
