@@ -1,6 +1,6 @@
 #pragma once
 
-namespace CodGhost
+namespace CodModernWarfare3
 {
 	void OnStart( void );
 

@@ -8,32 +8,8 @@
 
 #define WEAK __declspec( selectany )
 
-namespace CodGhost
+namespace CodModernWarfare3
 {
-    struct DvarLimits_unnamed_type_vector
-    {
-        float min;
-        float max;
-    };
-
-    struct DvarLimits_unnamed_type_integer
-    {
-        int min;
-        int max;
-    };
-
-    struct DvarLimits_unnamed_type_enumeration
-    {
-        int stringCount;
-        const char *const *strings;
-    };
-
-    struct DvarLimits_unnamed_type_value
-    {
-        float min;
-        float max;
-    };
-
     union DvarValue
     {
         bool enabled;
@@ -45,36 +21,60 @@ namespace CodGhost
         uint8_t color[4];
     };
 
+    struct DvarLimits_unnamed_type_enumeration
+    {
+        int stringCount;
+        const char **strings;
+    };
+    
+    struct DvarLimits_unnamed_type_integer
+    {
+        int min;
+        int max;
+    };
+
+    struct DvarLimits_unnamed_type_value
+    {
+        float min;
+        float max;
+    };
+
+    struct DvarLimits_unnamed_type_vector
+    {
+        float min;
+        float max;
+    };
+
     union DvarLimits
     {
-      DvarLimits_unnamed_type_enumeration enumeration;
-      DvarLimits_unnamed_type_integer integer;
-      DvarLimits_unnamed_type_value value;
-      DvarLimits_unnamed_type_vector vector;
+        DvarLimits_unnamed_type_enumeration enumeration;
+        DvarLimits_unnamed_type_integer integer;
+        DvarLimits_unnamed_type_value value;
+        DvarLimits_unnamed_type_vector vector;
     };
 
     struct dvar_t
     {
         const char *name;
-        unsigned int flags;
+        const char *description;
+        uint16_t flags;
         uint8_t type;
         bool modified;
         DvarValue current;
         DvarValue latched;
         DvarValue reset;
         DvarLimits domain;
-        bool (__fastcall *domainFunc)(dvar_t *, DvarValue);
         dvar_t *hashNext;
     };
 
-    WEAK libpsutil::symbol<dvar_t*( const char *dvarName )> Dvar_FindVar{ 0x50A63C };
-    WEAK libpsutil::symbol<dvar_t*( const char *dvarName, bool value, unsigned int flags )> Dvar_RegisterBool{ 0x6BDAB8 };
-    WEAK libpsutil::symbol<dvar_t*( const char *dvarName, const char *value, unsigned int flags )> Dvar_RegisterString{ 0x4EAFF4 };
-    WEAK libpsutil::symbol<dvar_t*( const char *dvarName, int value, int min, int max, unsigned int flags )> Dvar_RegisterInt{ 0x54601C };
-    WEAK libpsutil::symbol<dvar_t*( const char *dvarName, float value, float min, float max, unsigned int flags )> Dvar_RegisterFloat{ 0x50C2A0 };
-    WEAK libpsutil::symbol<dvar_t*( const char *dvarName, float x, float y, float z, float min, float max, unsigned int flags )> Dvar_RegisterVec3{ 0x6C8A98 };
-    WEAK libpsutil::symbol<dvar_t*( const char *dvarName, float x, float y, float z, float max, unsigned int flags )> Dvar_RegisterVec3Color{ 0x5E23CC };
-    WEAK libpsutil::symbol<void( void (*callback)(const dvar_t *, void *), void *userData )> Dvar_ForEach{ 0x57B198 };
+    WEAK libpsutil::symbol<dvar_t*( const char *dvarName )> Dvar_FindVar{ 0x2904C4 };
+    WEAK libpsutil::symbol<dvar_t*( const char *dvarName, bool value, unsigned int flags, const char* description )> Dvar_RegisterBool{ 0x2933F0 };
+    WEAK libpsutil::symbol<dvar_t*( const char *dvarName, const char *value, unsigned int flags, const char* description )> Dvar_RegisterString{ 0x2936A0 };
+    WEAK libpsutil::symbol<dvar_t*( const char *dvarName, int value, int min, int max, unsigned int flags, const char* description )> Dvar_RegisterInt{ 0x293454 };
+    WEAK libpsutil::symbol<dvar_t*( const char *dvarName, float value, float min, float max, unsigned int flags, const char* description )> Dvar_RegisterFloat{ 0x2934B4 };
+    WEAK libpsutil::symbol<dvar_t*( const char *dvarName, float x, float y, float z, float min, float max, unsigned int flags, const char* description )> Dvar_RegisterVec3{ 0x293578 };
+    WEAK libpsutil::symbol<dvar_t*( const char *dvarName, float x, float y, float z, float max, unsigned int flags, const char* description )> Dvar_RegisterVec3Color{ 0x2935DC };
+    WEAK libpsutil::symbol<void( void (*callback)(const dvar_t *, void *), void *userData )> Dvar_ForEach{ 0x28FFF4 };
 
     static const char* DvarToType( const dvar_t* dvar )
     {

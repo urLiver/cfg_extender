@@ -1,6 +1,6 @@
 #include "commands.hpp"
 
-namespace CodGhost
+namespace CodModernWarfare3
 {
 	cmd_function_s Cmd_Vstr_VAR;
 	void Cmd_Vstr( void ) 
@@ -126,7 +126,7 @@ namespace CodGhost
 	{
 		if ( ArgC() == 3 )
 		{
-			Dvar_RegisterString( ArgV( 1 ), ArgV( 2 ), 0 );
+			Dvar_RegisterString( ArgV( 1 ), ArgV( 2 ), 0, "none" );
 		}
 		else
 		{
@@ -139,7 +139,7 @@ namespace CodGhost
 	{
 		if ( ArgC() == 5 )
 		{
-			Dvar_RegisterInt( ArgV( 1 ), StringToInt( ArgV( 2 ) ), StringToInt( ArgV( 3 ) ), StringToInt( ArgV( 4 ) ), 0 );
+			Dvar_RegisterInt( ArgV( 1 ), StringToInt( ArgV( 2 ) ), StringToInt( ArgV( 3 ) ), StringToInt( ArgV( 4 ) ), 0, "none" );
 		}
 		else
 		{
@@ -152,7 +152,7 @@ namespace CodGhost
 	{
 		if ( ArgC() == 5 )
 		{
-			Dvar_RegisterFloat( ArgV( 1 ), StringToFloat( ArgV( 2 ) ), StringToFloat( ArgV( 3 ) ), StringToFloat( ArgV( 4 ) ), 0 );
+			Dvar_RegisterFloat( ArgV( 1 ), StringToFloat( ArgV( 2 ) ), StringToFloat( ArgV( 3 ) ), StringToFloat( ArgV( 4 ) ), 0, "none" );
 		}
 		else
 		{
@@ -165,7 +165,7 @@ namespace CodGhost
 	{
 		if ( ArgC() == 3 )
 		{
-			Dvar_RegisterBool( ArgV( 1 ), StringToInt( ArgV( 2 ) ), 0 );
+			Dvar_RegisterBool( ArgV( 1 ), StringToInt( ArgV( 2 ) ), 0, "none" );
 		}
 		else
 		{
@@ -178,7 +178,7 @@ namespace CodGhost
 	{
 		if ( ArgC() == 7 )
 		{
-			Dvar_RegisterVec3( ArgV( 1 ), StringToFloat( ArgV( 2 ) ), StringToFloat( ArgV( 3 ) ), StringToFloat( ArgV( 4 ) ), StringToFloat( ArgV( 5 ) ), StringToFloat( ArgV( 6 ) ), 0 );
+			Dvar_RegisterVec3( ArgV( 1 ), StringToFloat( ArgV( 2 ) ), StringToFloat( ArgV( 3 ) ), StringToFloat( ArgV( 4 ) ), StringToFloat( ArgV( 5 ) ), StringToFloat( ArgV( 6 ) ), 0, "none" );
 		}
 		else
 		{
@@ -191,7 +191,7 @@ namespace CodGhost
 	{
 		if ( ArgC() == 6 )
 		{
-			Dvar_RegisterVec3Color( ArgV( 1 ), StringToFloat( ArgV( 2 ) ), StringToFloat( ArgV( 3 ) ), StringToFloat( ArgV( 4 ) ), StringToFloat( ArgV( 5 ) ), 0 );
+			Dvar_RegisterVec3Color( ArgV( 1 ), StringToFloat( ArgV( 2 ) ), StringToFloat( ArgV( 3 ) ), StringToFloat( ArgV( 4 ) ), StringToFloat( ArgV( 5 ) ), 0, "none" );
 		}
 		else
 		{

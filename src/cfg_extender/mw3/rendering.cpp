@@ -2,7 +2,7 @@
 
 #define WEAK __declspec( selectany )
 
-namespace CodGhost
+namespace CodModernWarfare3
 {
 	struct display_text
 	{
@@ -50,11 +50,11 @@ namespace CodGhost
 	bool clear_texts = false;
 	bool clear_rects = false;
 
-	WEAK libpsutil::symbol<void*( const char *name, int imageTrack )>R_RegisterFont{ 0x459C6C };
-	WEAK libpsutil::symbol<void*( const char *name, int imageTrack )>Material_RegisterHandle{ 0x46540C };
-	WEAK libpsutil::symbol<ScreenPlacement*( int localClientNum )>ScrPlace_GetActivePlacement{ 0x1B8CCC };
-	WEAK libpsutil::symbol<void( ScreenPlacement* scrPlace, const char* text, int maxChars, void* font, double x, double y, int horzAlign, int vertAlign, double scale, const float* color, int style )>UI_DrawText{ 0x348840 };
-	WEAK libpsutil::symbol<void( ScreenPlacement* scrPlace, double x, double y, double w, double h, int horzAlign, int vertAlign, const float* color, void* material )>UI_DrawHandlePic{ 0x332078 };
+	WEAK libpsutil::symbol<void*( const char *name, int imageTrack )>R_RegisterFont{ 0x3808B8 };
+	WEAK libpsutil::symbol<void*( const char *name, int imageTrack )>Material_RegisterHandle{ 0x38B044 };
+	WEAK libpsutil::symbol<ScreenPlacement*( int localClientNum )>ScrPlace_GetActivePlacement{ 0x1174E0 };
+	WEAK libpsutil::symbol<void( ScreenPlacement* scrPlace, const char* text, int maxChars, void* font, double x, double y, int horzAlign, int vertAlign, double scale, const float* color, int style )>UI_DrawText{ 0x2522B8 };
+	WEAK libpsutil::symbol<void( ScreenPlacement* scrPlace, double x, double y, double w, double h, int horzAlign, int vertAlign, const float* color, void* material )>UI_DrawHandlePic{ 0x23A6B0 };
 
 	void Render( void )
 	{

@@ -4,7 +4,7 @@
 #include <vector>
 #include <string>
 
-namespace CodGhost
+namespace CodModernWarfare3
 {
 	void Render( void );
 

@@ -3,14 +3,14 @@
 #include "cmd_args.hpp"
 #include "dvars.hpp"
 #include "utils.hpp"
-#include "logging.hpp"
 #include "rendering.hpp"
 
 #include "../utils/webman.hpp"
+#include "logging.hpp"
 
 #include <cell/cell_fs.h>
 
-namespace CodGhost
+namespace CodModernWarfare3
 {
 	extern cmd_function_s Cmd_Vstr_VAR;
 	void Cmd_Vstr( void );

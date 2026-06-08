@@ -5,7 +5,7 @@
 
 #define WEAK __declspec( selectany )
 
-namespace CodGhost
+namespace CodModernWarfare3
 {
 	struct cmd_function_s
 	{
@@ -25,7 +25,7 @@ namespace CodGhost
 	};
 	#pragma pack(pop)
 
-	static CmdArgs* cmd_args = reinterpret_cast<CmdArgs*>( 0x103EBB0 );
+	static CmdArgs* cmd_args = reinterpret_cast<CmdArgs*>( 0x11708A0 );
 
 	static int ArgC( void ) 
 	{
@@ -48,5 +48,5 @@ namespace CodGhost
 		return cmd_args->argv[ cmd_args->nesting ][ index ];
 	}
 
-	WEAK libpsutil::symbol<void( const char *cmdName, void (*function)(), cmd_function_s *allocedCmd )> Cmd_AddCommandInternal{ 0x2B2EC0 };
+	WEAK libpsutil::symbol<void( const char *cmdName, void (*function)(), cmd_function_s *allocedCmd )> Cmd_AddCommandInternal{ 0x1DC4FC };
 }
