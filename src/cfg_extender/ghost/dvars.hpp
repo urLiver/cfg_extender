@@ -75,7 +75,10 @@ namespace CodGhost
     WEAK libpsutil::symbol<dvar_t*( const char *dvarName, float x, float y, float z, float min, float max, unsigned int flags )> Dvar_RegisterVec3{ 0x6C8A98 };
     WEAK libpsutil::symbol<dvar_t*( const char *dvarName, float x, float y, float z, float max, unsigned int flags )> Dvar_RegisterVec3Color{ 0x5E23CC };
     WEAK libpsutil::symbol<void( void (*callback)(const dvar_t *, void *), void *userData )> Dvar_ForEach{ 0x57B198 };
-
+    WEAK libpsutil::symbol<int( const char* dvarName )> Dvar_GetInt{ 0x5749A8 };
+    WEAK libpsutil::symbol<float( const char* dvarName )> Dvar_GetFloat{ 0x6AA6C8 };
+    WEAK libpsutil::symbol<void( const char* dvarName, int value )> Dvar_SetIntByName{ 0x6C19C8 };
+    
     static const char* DvarToType( const dvar_t* dvar )
     {
         const char* result = "unknow";

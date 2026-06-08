@@ -4,28 +4,6 @@
 
 namespace CodModernWarfare3
 {
-	struct display_text
-	{
-		int localclientnum;
-		std::string text;
-		int x;
-		int y;
-		std::string font;
-		float font_size;
-		float color[ 4 ];
-	};
-
-	struct display_rect
-	{
-		int localclientnum;
-		int x;
-		int y;
-		int w;
-		int h;
-		std::string material;
-		float color[ 4 ];
-	};
-
 	struct ScreenPlacement
 	{
 		float scaleVirtualToReal[2];
@@ -43,12 +21,6 @@ namespace CodModernWarfare3
 		float realAdjustableMax[2];
 		float subScreenLeft;
 	};
-
-	std::vector<display_text> texts;
-	std::vector<display_rect> rects;
-
-	bool clear_texts = false;
-	bool clear_rects = false;
 
 	WEAK libpsutil::symbol<void*( const char *name, int imageTrack )>R_RegisterFont{ 0x3808B8 };
 	WEAK libpsutil::symbol<void*( const char *name, int imageTrack )>Material_RegisterHandle{ 0x38B044 };

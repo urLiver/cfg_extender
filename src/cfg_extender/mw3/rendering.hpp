@@ -4,6 +4,8 @@
 #include <vector>
 #include <string>
 
+#include "../utils/globals.hpp"
+
 namespace CodModernWarfare3
 {
 	void Render( void );

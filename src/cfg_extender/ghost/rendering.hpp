@@ -4,6 +4,10 @@
 #include <vector>
 #include <string>
 
+#include "dvars.hpp"
+
+#include "../utils/globals.hpp"
+
 namespace CodGhost
 {
 	void Render( void );
@@ -15,4 +19,8 @@ namespace CodGhost
 	void AddRect( int localclientnum, int x, int y, int w, int h, const char* material, float r, float g, float b, float a );
 
 	void ClearRects( void );
+	
+	void Print( int localclientnum, const char* text );
+	
+	void ClearPrints( void );
 }

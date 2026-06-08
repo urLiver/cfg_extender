@@ -32,7 +32,7 @@ namespace CodModernWarfare3
 		}
 		else
 		{
-			LogWrite( "vstr <variablename> : execute a variable command, argc: %i\n", ArgC() );
+			LogWrite( "cfge_vstr <variablename> : execute a variable command, argc: %i\n", ArgC() );
 		}
 	}
 
@@ -47,7 +47,7 @@ namespace CodModernWarfare3
 		}
 		else
 		{
-			LogWrite( "iprintln <message> : prints a message on the screen, argc: %i\n", ArgC() );
+			LogWrite( "cfge_iprintln <message> : prints a message on the screen, argc: %i\n", ArgC() );
 		}
 	}
 
@@ -62,7 +62,7 @@ namespace CodModernWarfare3
 		}
 		else
 		{
-			LogWrite( "iprintlnbold <message> : prints a message on the screen, argc: %i\n", ArgC() );
+			LogWrite( "cfge_iprintlnbold <message> : prints a message on the screen, argc: %i\n", ArgC() );
 		}
 	}
 
@@ -117,7 +117,7 @@ namespace CodModernWarfare3
 		}
 		else
 		{
-			LogWrite( "execfromdisk <filepath> : loads a file into memory and runs it, argc: %i\n", ArgC() );
+			LogWrite( "cfge_execfromdisk <filepath> : loads a file into memory and runs it, argc: %i\n", ArgC() );
 		}
 	}
 
@@ -130,7 +130,7 @@ namespace CodModernWarfare3
 		}
 		else
 		{
-			LogWrite( "dvar_string <dvar> <value> : set a dvar string, argc: %i\n", ArgC() );
+			LogWrite( "cfge_dvar_string <dvar> <value> : set a dvar string, argc: %i\n", ArgC(), "none" );
 		}
 	}
 
@@ -143,7 +143,7 @@ namespace CodModernWarfare3
 		}
 		else
 		{
-			LogWrite( "dvar_int <dvar> <value> <min> <max> : set a dvar string, argc: %i\n", ArgC() );
+			LogWrite( "cfge_dvar_int <dvar> <value> <min> <max> : set a dvar string, argc: %i\n", ArgC() );
 		}
 	}
 
@@ -156,7 +156,7 @@ namespace CodModernWarfare3
 		}
 		else
 		{
-			LogWrite( "dvar_float <dvar> <value> <min> <max> : set a dvar string, argc: %i\n", ArgC() );
+			LogWrite( "cfge_dvar_float <dvar> <value> <min> <max> : set a dvar string, argc: %i\n", ArgC() );
 		}
 	}
 
@@ -169,7 +169,7 @@ namespace CodModernWarfare3
 		}
 		else
 		{
-			LogWrite( "dvar_bool <dvar> <value> : set a dvar string, argc: %i\n", ArgC() );
+			LogWrite( "cfge_dvar_bool <dvar> <value> : set a dvar string, argc: %i\n", ArgC() );
 		}
 	}
 
@@ -182,7 +182,7 @@ namespace CodModernWarfare3
 		}
 		else
 		{
-			LogWrite( "dvar_vector <dvar> <x> <y> <z> <min> <max> : set a dvar string, argc: %i\n", ArgC() );
+			LogWrite( "cfge_dvar_vector <dvar> <x> <y> <z> <min> <max> : set a dvar string, argc: %i\n", ArgC() );
 		}
 	}
 
@@ -195,7 +195,7 @@ namespace CodModernWarfare3
 		}
 		else
 		{
-			LogWrite( "dvar_vectorcolor <dvar> <x> <y> <z> <max> : set a dvar string, argc: %i\n", ArgC() );
+			LogWrite( "cfge_dvar_vectorcolor <dvar> <x> <y> <z> <max> : set a dvar string, argc: %i\n", ArgC() );
 		}
 	}
 
@@ -212,7 +212,7 @@ namespace CodModernWarfare3
 		}
 		else
 		{
-			LogWrite( "dump_commands called with arguments, while it shouldnt have any, argc: %i\n", ArgC() );
+			LogWrite( "cfge_dump_commands called with arguments, while it shouldnt have any, argc: %i\n", ArgC() );
 		}
 	}
 
@@ -225,7 +225,7 @@ namespace CodModernWarfare3
 		}
 		else
 		{
-			LogWrite( "dump_dvar called with arguments, while it shouldnt have any, argc: %i\n", ArgC() );
+			LogWrite( "cfge_dump_dvar called with arguments, while it shouldnt have any, argc: %i\n", ArgC() );
 		}
 	}
 
@@ -241,7 +241,7 @@ namespace CodModernWarfare3
 		}
 		else
 		{
-			LogWrite( "mem_char <offset> <byte> : write a single byte to an offset, argc: %i\n", ArgC() );
+			LogWrite( "cfge_mem_char <offset> <byte> : write a single byte to an offset, argc: %i\n", ArgC() );
 		}
 	}
 
@@ -257,7 +257,7 @@ namespace CodModernWarfare3
 		}
 		else
 		{
-			LogWrite( "mem_int <offset> <value> : write an int to an offset, argc: %i\n", ArgC() );
+			LogWrite( "cfge_mem_int <offset> <value> : write an int to an offset, argc: %i\n", ArgC() );
 		}
 	}
 
@@ -273,7 +273,7 @@ namespace CodModernWarfare3
 		}
 		else
 		{
-			LogWrite( "mem_float <offset> <value> : write an float to an offset, argc: %i\n", ArgC() );
+			LogWrite( "cfge_mem_float <offset> <value> : write an float to an offset, argc: %i\n", ArgC() );
 		}
 	}
 
@@ -286,7 +286,7 @@ namespace CodModernWarfare3
 		}
 		else
 		{
-			LogWrite( "clear_texts called with arguments, while it shouldnt have any, argc: %i\n", ArgC() );
+			LogWrite( "cfge_clear_texts called with arguments, while it shouldnt have any, argc: %i\n", ArgC() );
 		}
 	}
 
@@ -299,7 +299,7 @@ namespace CodModernWarfare3
 		}
 		else
 		{
-			LogWrite( "clear_rects called with arguments, while it shouldnt have any, argc: %i\n", ArgC() );
+			LogWrite( "cfge_clear_rects called with arguments, while it shouldnt have any, argc: %i\n", ArgC() );
 		}
 	}
 
@@ -312,7 +312,7 @@ namespace CodModernWarfare3
 		}
 		else
 		{
-			LogWrite( "text <text> <x> <y> <font> <size> <r> <g> <b> <a> : renders text to the screen, argc: %i\n", ArgC() );
+			LogWrite( "cfge_text <text> <x> <y> <font> <size> <r> <g> <b> <a> : renders text to the screen, argc: %i\n", ArgC() );
 		}
 	}
 
@@ -325,12 +325,10 @@ namespace CodModernWarfare3
 		}
 		else
 		{
-			LogWrite( "rect <x> <y> <w> <h> <material> <r> <g> <b> <a> : renders a rect to the screen, argc: %i\n", ArgC() );
+			LogWrite( "cfge_rect <x> <y> <w> <h> <material> <r> <g> <b> <a> : renders a rect to the screen, argc: %i\n", ArgC() );
 		}
 	}
 
-	bool key_toggled_table[ 4 ][ 128 ] = { 0 }; 
-	std::string key_cmd_table[ 4 ][ 128 ] = { std::string( "" ) }; 
 	cmd_function_s Cmd_BindCmd_VAR;
 	void Cmd_BindCmd( void )
 	{
@@ -353,7 +351,7 @@ namespace CodModernWarfare3
 		}
 		else
 		{
-			LogWrite( "bind_cmd <key> <cmd> : binds a command to a key, argc: %i\n", ArgC() );
+			LogWrite( "cfge_bind_cmd <key> <cmd> : binds a command to a key, argc: %i\n", ArgC() );
 		}
 	}
 
@@ -377,7 +375,7 @@ namespace CodModernWarfare3
 		}
 		else
 		{
-			LogWrite( "unbind_cmd <key> : unbinds a command from a key, argc: %i\n", ArgC() );
+			LogWrite( "cfge_unbind_cmd <key> : unbinds a command from a key, argc: %i\n", ArgC() );
 		}
 	}
 }

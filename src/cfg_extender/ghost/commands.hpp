@@ -7,6 +7,7 @@
 #include "rendering.hpp"
 
 #include "../utils/webman.hpp"
+#include "../utils/globals.hpp"
 
 #include <cell/cell_fs.h>
 
@@ -69,11 +70,15 @@ namespace CodGhost
 	extern cmd_function_s Cmd_Rect_VAR;
 	void Cmd_Rect( void );
 
-	extern bool key_toggled_table[ 4 ][ 128 ]; 
-	extern std::string key_cmd_table[ 4 ][ 128 ]; 
 	extern cmd_function_s Cmd_BindCmd_VAR;
 	void Cmd_BindCmd( void );
 
 	extern cmd_function_s Cmd_UnbindCmd_VAR;
 	void Cmd_UnbindCmd( void );
+	
+	extern cmd_function_s Cmd_ClearPrints_VAR;
+	void Cmd_ClearPrints( void );
+
+	extern cmd_function_s Cmd_Print_VAR;
+	void Cmd_Print( void );
 }
