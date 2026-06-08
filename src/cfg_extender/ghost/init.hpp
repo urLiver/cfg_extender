@@ -1,8 +1,0 @@
-#pragma once
-
-namespace CodGhost
-{
-	void OnStart( void );
-
-	void OnStop( void );
-}
