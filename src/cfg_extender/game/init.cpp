@@ -3,6 +3,7 @@
 #include "cmd_args.hpp"
 #include "commands.hpp"
 #include "rendering.hpp"
+#include "button_commands.hpp"
 
 #include "../utils/webman.hpp"
 
@@ -25,6 +26,7 @@ namespace Cod_Ghost
 
 			Cmd_AddCommandInternal( "cfge_iprintln", Cmd_iPrintLn, &Cmd_iPrintLn_VAR );
 			Cmd_AddCommandInternal( "cfge_iprintlnbold", Cmd_iPrintLnBold, &Cmd_iPrintLnBold_VAR );
+
 			Cmd_AddCommandInternal( "cfge_execfromdisk", Cmd_ExecFromDisk, &Cmd_Cmd_ExecFromDisk_VAR );
 		
 			Cmd_AddCommandInternal( "cfge_dvar_string", Cmd_DvarRegisterString, &Cmd_DvarRegisterString_VAR );
@@ -52,6 +54,8 @@ namespace Cod_Ghost
 			Cmd_AddCommandInternal( "cfge_print", Cmd_Print, &Cmd_Print_VAR );
 			Cmd_AddCommandInternal( "cfge_clear_prints", Cmd_ClearPrints, &Cmd_ClearPrints_VAR );
 		
+			AddBindingCommands();
+
 			WebmanNotify( "Loaded Commands" );
 		}
 	}
@@ -146,6 +150,7 @@ namespace Cod_Mw3
 
 			Cmd_AddCommandInternal( "cfge_iprintln", Cmd_iPrintLn, &Cmd_iPrintLn_VAR );
 			Cmd_AddCommandInternal( "cfge_iprintlnbold", Cmd_iPrintLnBold, &Cmd_iPrintLnBold_VAR );
+
 			Cmd_AddCommandInternal( "cfge_execfromdisk", Cmd_ExecFromDisk, &Cmd_Cmd_ExecFromDisk_VAR );
 		
 			Cmd_AddCommandInternal( "cfge_dvar_string", Cmd_DvarRegisterString, &Cmd_DvarRegisterString_VAR );
@@ -170,6 +175,8 @@ namespace Cod_Mw3
 			Cmd_AddCommandInternal( "cfge_bind_cmd", Cmd_BindCmd, &Cmd_BindCmd_VAR );
 			Cmd_AddCommandInternal( "cfge_unbind_cmd", Cmd_UnbindCmd, &Cmd_UnbindCmd_VAR );
 		
+			AddBindingCommands();
+
 			WebmanNotify( "Loaded Commands" );
 		}
 	}

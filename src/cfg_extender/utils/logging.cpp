@@ -21,7 +21,6 @@ static void Com_vsnprintf( char *dest, int size, const char *fmt, char *vargs )
     }
 }
 
-
 void WriteFile( const char* path, const char* fmt, ... )
 {
     char dest[ 512 ] = { 0 };
@@ -58,6 +57,21 @@ void LogWrite( const char* fmt, ... )
     va_start( vargs, fmt );
 
     Com_vsnprintf( dest, sizeof( dest ), fmt, vargs );
+    
+    size_t len = strlen(dest);
+    if( len > 0 && dest[ len - 1 ] != '\n' )
+    {
+        if( len < sizeof( dest ) - 1 )
+        {
+            dest[ len ] = '\n';
+            dest[ len + 1 ] = '\0';
+        }
+        else
+        {
+            dest[ sizeof( dest ) - 2 ] = '\n';
+            dest[ sizeof( dest ) - 1 ] = '\0';
+        }
+    }
 
     int file_descriptor = 0;
 
