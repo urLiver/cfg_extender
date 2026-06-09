@@ -203,9 +203,24 @@ void Cmd_DumpCommands( void )
 	if( CmdArgs_ArgC() == 1 )
 	{
 		cmd_function_s* command;
-		for( command = ( cmd_function_s* )0x1063D28; command != NULL; command = command->next )
+		
+		switch( global_current_game )
 		{
-			WriteFile( "/dev_hdd0/tmp/cfg_extender.command_dump", "%s\n", command->name );
+			case Games_Ghost:
+				for( command = ( cmd_function_s* )0x1063D28; command != NULL; command = command->next )
+				{
+					WriteFile( "/dev_hdd0/tmp/cfg_extender.command_dump", "%s\n", command->name );
+				}
+			break;
+			case Games_Mw3:
+				for( command = ( cmd_function_s* )0x11B5A30; command != NULL; command = command->next )
+				{
+					WriteFile( "/dev_hdd0/tmp/cfg_extender.command_dump", "%s\n", command->name );
+				}
+			break;
+			default:
+				LogWrite( "cfge_dump_commands: called, but no game case defined for %i", ( int )global_current_game );
+			break;
 		}
 	}
 	else
