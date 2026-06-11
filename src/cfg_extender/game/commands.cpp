@@ -30,7 +30,7 @@ void Cmd_Vstr( void )
 	}
 	else
 	{
-		LogWrite( "cfge_vstr <variablename> : execute a variable command, CmdArgs_ArgC: %i\n", CmdArgs_ArgC() );
+		LogWrite( "vstr <variablename> : execute a variable command, CmdArgs_ArgC: %i\n", CmdArgs_ArgC() );
 	}
 }
 
@@ -45,7 +45,7 @@ void Cmd_iPrintLn( void )
 	}
 	else
 	{
-		LogWrite( "cfge_iprintln <message> : prints a message on the screen, CmdArgs_ArgC: %i\n", CmdArgs_ArgC() );
+		LogWrite( "iprintln <message> : prints a message on the screen, CmdArgs_ArgC: %i\n", CmdArgs_ArgC() );
 	}
 }
 
@@ -60,7 +60,7 @@ void Cmd_iPrintLnBold( void )
 	}
 	else
 	{
-		LogWrite( "cfge_iprintlnbold <message> : prints a message on the screen, CmdArgs_ArgC: %i\n", CmdArgs_ArgC() );
+		LogWrite( "iprintlnbold <message> : prints a message on the screen, CmdArgs_ArgC: %i\n", CmdArgs_ArgC() );
 	}
 }
 
@@ -115,7 +115,7 @@ void Cmd_ExecFromDisk( void )
 	}
 	else
 	{
-		LogWrite( "cfge_execfromdisk <filepath> : loads a file into memory and runs it, CmdArgs_ArgC: %i\n", CmdArgs_ArgC() );
+		LogWrite( "execfromdisk <filepath> : loads a file into memory and runs it, CmdArgs_ArgC: %i\n", CmdArgs_ArgC() );
 	}
 }
 
@@ -128,7 +128,7 @@ void Cmd_DvarRegisterString( void )
 	}
 	else
 	{
-		LogWrite( "cfge_dvar_string <dvar> <value> : set a dvar string, CmdArgs_ArgC: %i\n", CmdArgs_ArgC() );
+		LogWrite( "dvar_string <dvar> <value> : set a dvar string, CmdArgs_ArgC: %i\n", CmdArgs_ArgC() );
 	}
 }
 
@@ -141,7 +141,7 @@ void Cmd_DvarRegisterInt( void )
 	}
 	else
 	{
-		LogWrite( "cfge_dvar_int <dvar> <value> <min> <max> : set a dvar string, CmdArgs_ArgC: %i\n", CmdArgs_ArgC() );
+		LogWrite( "dvar_int <dvar> <value> <min> <max> : set a dvar string, CmdArgs_ArgC: %i\n", CmdArgs_ArgC() );
 	}
 }
 
@@ -154,7 +154,7 @@ void Cmd_DvarRegisterFloat( void )
 	}
 	else
 	{
-		LogWrite( "cfge_dvar_float <dvar> <value> <min> <max> : set a dvar string, CmdArgs_ArgC: %i\n", CmdArgs_ArgC() );
+		LogWrite( "dvar_float <dvar> <value> <min> <max> : set a dvar string, CmdArgs_ArgC: %i\n", CmdArgs_ArgC() );
 	}
 }
 
@@ -167,7 +167,7 @@ void Cmd_DvarRegisterBool( void )
 	}
 	else
 	{
-		LogWrite( "cfge_dvar_bool <dvar> <value> : set a dvar string, CmdArgs_ArgC: %i\n", CmdArgs_ArgC() );
+		LogWrite( "dvar_bool <dvar> <value> : set a dvar string, CmdArgs_ArgC: %i\n", CmdArgs_ArgC() );
 	}
 }
 
@@ -180,7 +180,7 @@ void Cmd_DvarRegisterVector( void )
 	}
 	else
 	{
-		LogWrite( "cfge_dvar_vector <dvar> <x> <y> <z> <min> <max> : set a dvar string, CmdArgs_ArgC: %i\n", CmdArgs_ArgC() );
+		LogWrite( "dvar_vector <dvar> <x> <y> <z> <min> <max> : set a dvar string, CmdArgs_ArgC: %i\n", CmdArgs_ArgC() );
 	}
 }
 
@@ -193,7 +193,7 @@ void Cmd_DvarRegisterVectorColor( void )
 	}
 	else
 	{
-		LogWrite( "cfge_dvar_vectorcolor <dvar> <x> <y> <z> <max> : set a dvar string, CmdArgs_ArgC: %i\n", CmdArgs_ArgC() );
+		LogWrite( "dvar_vectorcolor <dvar> <x> <y> <z> <max> : set a dvar string, CmdArgs_ArgC: %i\n", CmdArgs_ArgC() );
 	}
 }
 
@@ -219,13 +219,13 @@ void Cmd_DumpCommands( void )
 				}
 			break;
 			default:
-				LogWrite( "cfge_dump_commands: called, but no game case defined for %i", ( int )global_current_game );
+				LogWrite( "dump_commands: called, but no game case defined for %i", ( int )global_current_game );
 			break;
 		}
 	}
 	else
 	{
-		LogWrite( "cfge_dump_commands called with arguments, while it shouldnt have any, CmdArgs_ArgC: %i\n", CmdArgs_ArgC() );
+		LogWrite( "dump_commands called with arguments, while it shouldnt have any, CmdArgs_ArgC: %i\n", CmdArgs_ArgC() );
 	}
 }
 
@@ -238,7 +238,7 @@ void Cmd_DumpDvars( void )
 	}
 	else
 	{
-		LogWrite( "cfge_dump_dvar called with arguments, while it shouldnt have any, CmdArgs_ArgC: %i\n", CmdArgs_ArgC() );
+		LogWrite( "dump_dvar called with arguments, while it shouldnt have any, CmdArgs_ArgC: %i\n", CmdArgs_ArgC() );
 	}
 }
 
@@ -254,7 +254,7 @@ void Cmd_MemChar( void )
 	}
 	else
 	{
-		LogWrite( "cfge_mem_char <offset> <byte> : write a single byte to an offset, CmdArgs_ArgC: %i\n", CmdArgs_ArgC() );
+		LogWrite( "mem_char <offset> <byte> : write a single byte to an offset, CmdArgs_ArgC: %i\n", CmdArgs_ArgC() );
 	}
 }
 
@@ -270,7 +270,7 @@ void Cmd_MemInt( void )
 	}
 	else
 	{
-		LogWrite( "cfge_mem_int <offset> <value> : write an int to an offset, CmdArgs_ArgC: %i\n", CmdArgs_ArgC() );
+		LogWrite( "mem_int <offset> <value> : write an int to an offset, CmdArgs_ArgC: %i\n", CmdArgs_ArgC() );
 	}
 }
 
@@ -286,7 +286,7 @@ void Cmd_MemFloat( void )
 	}
 	else
 	{
-		LogWrite( "cfge_mem_float <offset> <value> : write an float to an offset, CmdArgs_ArgC: %i\n", CmdArgs_ArgC() );
+		LogWrite( "mem_float <offset> <value> : write an float to an offset, CmdArgs_ArgC: %i\n", CmdArgs_ArgC() );
 	}
 }
 
@@ -299,7 +299,7 @@ void Cmd_ClearTexts( void )
 	}
 	else
 	{
-		LogWrite( "cfge_clear_texts called with arguments, while it shouldnt have any, CmdArgs_ArgC: %i\n", CmdArgs_ArgC() );
+		LogWrite( "clear_texts called with arguments, while it shouldnt have any, CmdArgs_ArgC: %i\n", CmdArgs_ArgC() );
 	}
 }
 
@@ -312,7 +312,7 @@ void Cmd_ClearRects( void )
 	}
 	else
 	{
-		LogWrite( "cfge_clear_rects called with arguments, while it shouldnt have any, CmdArgs_ArgC: %i\n", CmdArgs_ArgC() );
+		LogWrite( "clear_rects called with arguments, while it shouldnt have any, CmdArgs_ArgC: %i\n", CmdArgs_ArgC() );
 	}
 }
 
@@ -321,11 +321,11 @@ void Cmd_Text( void )
 {
 	if( CmdArgs_ArgC() == 10 )
 	{
-		AddText( CmdArgs_LocalClientNum(), CmdArgs_ArgV( 1 ), StringToInt( CmdArgs_ArgV( 2 ) ), StringToInt( CmdArgs_ArgV( 3 ) ), CmdArgs_ArgV( 4 ), StringToFloat( CmdArgs_ArgV( 5 ) ), StringToFloat( CmdArgs_ArgV( 6 ) ), StringToFloat( CmdArgs_ArgV( 7 ) ), StringToFloat( CmdArgs_ArgV( 8 ) ), StringToFloat( CmdArgs_ArgV( 9 ) ) );
+		AddText( CmdArgs_ArgV( 1 ), StringToInt( CmdArgs_ArgV( 2 ) ), StringToInt( CmdArgs_ArgV( 3 ) ), StringToInt( CmdArgs_ArgV( 4 ) ), StringToFloat( CmdArgs_ArgV( 5 ) ), StringToFloat( CmdArgs_ArgV( 6 ) ), StringToFloat( CmdArgs_ArgV( 7 ) ), StringToFloat( CmdArgs_ArgV( 8 ) ), StringToFloat( CmdArgs_ArgV( 9 ) ) );
 	}
 	else
 	{
-		LogWrite( "cfge_text <text> <x> <y> <font> <size> <r> <g> <b> <a> : renders text to the screen, CmdArgs_ArgC: %i\n", CmdArgs_ArgC() );
+		LogWrite( "text <text> <x> <y> <font> <size> <r> <g> <b> <a> : renders text to the screen, CmdArgs_ArgC: %i\n", CmdArgs_ArgC() );
 	}
 }
 
@@ -334,11 +334,11 @@ void Cmd_Rect( void )
 {
 	if( CmdArgs_ArgC() == 10 )
 	{
-		AddRect( CmdArgs_LocalClientNum(), StringToInt( CmdArgs_ArgV( 1 ) ), StringToInt( CmdArgs_ArgV( 2 ) ), StringToInt( CmdArgs_ArgV( 3 ) ), StringToInt( CmdArgs_ArgV( 4 ) ), CmdArgs_ArgV( 5 ), StringToFloat( CmdArgs_ArgV( 6 ) ), StringToFloat( CmdArgs_ArgV( 7 ) ), StringToFloat( CmdArgs_ArgV( 8 ) ), StringToFloat( CmdArgs_ArgV( 9 ) ) );
+		AddRect( StringToInt( CmdArgs_ArgV( 1 ) ), StringToInt( CmdArgs_ArgV( 2 ) ), StringToInt( CmdArgs_ArgV( 3 ) ), StringToInt( CmdArgs_ArgV( 4 ) ), CmdArgs_ArgV( 5 ), StringToFloat( CmdArgs_ArgV( 6 ) ), StringToFloat( CmdArgs_ArgV( 7 ) ), StringToFloat( CmdArgs_ArgV( 8 ) ), StringToFloat( CmdArgs_ArgV( 9 ) ) );
 	}
 	else
 	{
-		LogWrite( "cfge_rect <x> <y> <w> <h> <material> <r> <g> <b> <a> : renders a rect to the screen, CmdArgs_ArgC: %i\n", CmdArgs_ArgC() );
+		LogWrite( "rect <x> <y> <w> <h> <material> <r> <g> <b> <a> : renders a rect to the screen, CmdArgs_ArgC: %i\n", CmdArgs_ArgC() );
 	}
 }
 
@@ -364,7 +364,7 @@ void Cmd_BindCmd( void )
 	}
 	else
 	{
-		LogWrite( "cfge_bind_cmd <key> <cmd> : binds a command to a key, CmdArgs_ArgC: %i\n", CmdArgs_ArgC() );
+		LogWrite( "bind_cmd <key> <cmd> : binds a command to a key, CmdArgs_ArgC: %i\n", CmdArgs_ArgC() );
 	}
 }
 
@@ -388,32 +388,38 @@ void Cmd_UnbindCmd( void )
 	}
 	else
 	{
-		LogWrite( "cfge_unbind_cmd <key> : unbinds a command from a key, CmdArgs_ArgC: %i\n", CmdArgs_ArgC() );
-	}
-}
-	
-cmd_function_s Cmd_ClearPrints_VAR;
-void Cmd_ClearPrints( void )
-{
-	if( CmdArgs_ArgC() == 1 )
-	{
-		ClearPrints();
-	}
-	else
-	{
-		LogWrite( "cfge_clear_prints called with arguments, while it shouldnt have any, CmdArgs_ArgC: %i\n", CmdArgs_ArgC() );
+		LogWrite( "unbind_cmd <key> : unbinds a command from a key, CmdArgs_ArgC: %i\n", CmdArgs_ArgC() );
 	}
 }
 
-cmd_function_s Cmd_Print_VAR;
-void Cmd_Print( void )
+void AddCustomCommands( void )
 {
-	if( CmdArgs_ArgC() == 2 )
-	{
-		Print( CmdArgs_LocalClientNum(), CmdArgs_ArgV( 1 ) );
-	}
-	else
-	{
-		LogWrite( "cfge_print <text> : prints text to the screen, CmdArgs_ArgC: %i\n", CmdArgs_ArgC() );
-	}
+	Cmd_AddCommandInternal( "vstr", Cmd_Vstr, &Cmd_Vstr_VAR );
+
+	Cmd_AddCommandInternal( "iprintln", Cmd_iPrintLn, &Cmd_iPrintLn_VAR );
+	Cmd_AddCommandInternal( "iprintlnbold", Cmd_iPrintLnBold, &Cmd_iPrintLnBold_VAR );
+
+	Cmd_AddCommandInternal( "execfromdisk", Cmd_ExecFromDisk, &Cmd_Cmd_ExecFromDisk_VAR );
+		
+	Cmd_AddCommandInternal( "dvar_string", Cmd_DvarRegisterString, &Cmd_DvarRegisterString_VAR );
+	Cmd_AddCommandInternal( "dvar_int", Cmd_DvarRegisterInt, &Cmd_DvarRegisterInt_VAR );
+	Cmd_AddCommandInternal( "dvar_float", Cmd_DvarRegisterFloat, &Cmd_DvarRegisterFloat_VAR );
+	Cmd_AddCommandInternal( "dvar_bool", Cmd_DvarRegisterBool, &Cmd_DvarRegisterBool_VAR );
+	Cmd_AddCommandInternal( "dvar_vector", Cmd_DvarRegisterVector, &Cmd_DvarRegisterVector_VAR );
+	Cmd_AddCommandInternal( "dvar_vectorcolor", Cmd_DvarRegisterVectorColor, &Cmd_DvarRegisterVectorColor_VAR );
+		
+	Cmd_AddCommandInternal( "dump_commands", Cmd_DumpCommands, &Cmd_DumpCommands_VAR );
+	Cmd_AddCommandInternal( "dump_dvar", Cmd_DumpDvars, &Cmd_DumpDvars_VAR );
+		
+	Cmd_AddCommandInternal( "mem_char", Cmd_MemChar, &Cmd_MemChar_VAR );
+	Cmd_AddCommandInternal( "mem_int", Cmd_MemInt, &Cmd_MemInt_VAR );
+	Cmd_AddCommandInternal( "mem_float", Cmd_MemFloat, &Cmd_MemFloat_VAR );
+		
+	Cmd_AddCommandInternal( "clear_texts", Cmd_ClearTexts, &Cmd_ClearTexts_VAR );
+	Cmd_AddCommandInternal( "clear_rects", Cmd_ClearRects, &Cmd_ClearRects_VAR );
+	Cmd_AddCommandInternal( "text", Cmd_Text, &Cmd_Text_VAR );
+	Cmd_AddCommandInternal( "rect", Cmd_Rect, &Cmd_Rect_VAR );
+		
+	Cmd_AddCommandInternal( "bind_cmd", Cmd_BindCmd, &Cmd_BindCmd_VAR );
+	Cmd_AddCommandInternal( "unbind_cmd", Cmd_UnbindCmd, &Cmd_UnbindCmd_VAR );
 }

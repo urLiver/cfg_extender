@@ -9,14 +9,10 @@
 
 void Render( void );
 
-void AddText( int localclientnum, const char* text, int x, int y, const char* font, float font_size, float r, float g, float b, float a );
+void AddText( const char* text, int x, int y, int font, float font_size, float r, float g, float b, float a );
 
 void ClearTexts( void );
 
-void AddRect( int localclientnum, int x, int y, int w, int h, const char* material, float r, float g, float b, float a );
+void AddRect( int x, int y, int w, int h, const char* material, float r, float g, float b, float a );
 
 void ClearRects( void );
-	
-void Print( int localclientnum, const char* text );
-	
-void ClearPrints( void );

@@ -1,60 +1,42 @@
 The Code for the .sprx in this repo aims to enhance the functionality of .cfg on old cods on the ps3
 
-### Supported Games And There Commands:
-#### Call of Duty - Ghost
-- cfge_vstr &lt;variablename&gt;
-- cfge_iprintln &lt;message&gt;
-- cfge_iprintlnbold &lt;message&gt;
-- cfge_execfromdisk &lt;filepath&gt;
-- cfge_dvar_string &lt;dvar&gt; &lt;value&gt;
-- cfge_dvar_int &lt;dvar&gt; &lt;value&gt; &lt;min&gt; &lt;max&gt;
-- cfge_dvar_float &lt;dvar&gt; &lt;value&gt; &lt;min&gt; &lt;max&gt;
-- cfge_dvar_bool &lt;dvar&gt; &lt;value&gt;
-- cfge_dvar_vector &lt;dvar&gt; &lt;x&gt; &lt;y&gt; &lt;z&gt; &lt;min&gt; &lt;max&gt;
-- cfge_dvar_vectorcolor &lt;dvar&gt; &lt;x&gt; &lt;y&gt; &lt;z&gt; &lt;max&gt;
-- cfge_dump_commands
-- cfge_dump_dvar
-- cfge_mem_char &lt;offset&gt; &lt;byte&gt;
-- cfge_mem_int &lt;offset&gt; &lt;value&gt;
-- cfge_mem_float &lt;offset&gt; &lt;value&gt;
-- cfge_text &lt;text&gt; &lt;x&gt; &lt;y&gt; &lt;font&gt; &lt;size&gt; &lt;r&gt; &lt;g&gt; &lt;b&gt; &lt;a&gt;
-- cfge_clear_texts
-- cfge_rect &lt;x&gt; &lt;y&gt; &lt;w&gt; &lt;h&gt; &lt;material&gt; &lt;r&gt; &lt;g&gt; &lt;b&gt; &lt;a&gt;
-- cfge_clear_rects
-- cfge_print &lt;text&gt;
-- cfge_clear_prints
-- cfge_bind_cmd &lt;key&gt; &lt;command&gt;
-- cfge_unbind_cmd &lt;key&gt;
+### Supported Games:
+- Ghost
+- Modern Warfare 3
 
-##### Added Dvars
-- cfge_print_font: int 2 - 10, default 2
-- cfge_print_x: int 0 - 640, default 150
-- cfge_print_y: int 0 - 640, default 100
-- cfge_print_padding: int 0 - 200, default 20
-- cfge_print_size: float 0.1 - 10, default 0.5
+#### Supported Commands:
+- vstr <variable: <span style="color:#4295f5">string</span>>
+- iprintln <message: <span style="color:#4295f5">string</span>>
+- iprintlnbold <message: <span style="color:#4295f5">string</span>
+- execfromdisk <filepath: <span style="color:#4295f5">string</span>> 
+- dvar_string <dvar: <span style="color:#4295f5">string</span>> <value: <span style="color:#4295f5">string</span>>
+- dvar_int <dvar: <span style="color:#4295f5">string</span>> <value: <span style="color:#4295f5">int</span>> <min: <span style="color:#4295f5">int</span>> <max: <span style="color:#4295f5">int</span>>
+- dvar_float <dvar: <span style="color:#4295f5">string</span>> <value: <span style="color:#4295f5">float</span>> <min: <span style="color:#4295f5">float</span>> <max: <span style="color:#4295f5">float</span>>
+- dvar_bool <dvar: <span style="color:#4295f5">string</span>> <value: <span style="color:#4295f5">int</span>>
+- dvar_vector <dvar: <span style="color:#4295f5">string</span>> <x: <span style="color:#4295f5">float</span>> <y: <span style="color:#4295f5">float</span>> <z: <span style="color:#4295f5">float</span>> <min: <span style="color:#4295f5">float</span>> <max: <span style="color:#4295f5">float</span>>
+- dvar_vectorcolor <dvar: <span style="color:#4295f5">string</span>> <r: <span style="color:#4295f5">float</span>> <g: <span style="color:#4295f5">float</span>> <b: <span style="color:#4295f5">float</span>> <max: <span style="color:#4295f5">float</span>>
+- dump_commands
+- dump_dvar
+- mem_char <offset: <span style="color:#4295f5">hex</span>> <value: <span style="color:#4295f5">byte</span>>
+- mem_int <offset: <span style="color:#4295f5">hex</span>> <value: <span style="color:#4295f5">int</span>>
+- mem_float <offset: <span style="color:#4295f5">hex</span>> <value: <span style="color:#4295f5">float</span>>
+- clear_texts
+- clear_rects
+- text <text: <span style="color:#4295f5">string</span>> <x: <span style="color:#4295f5">int</span>> <y: <span style="color:#4295f5">int</span>> <font: <span style="color:#4295f5">int</span>> <size: <span style="color:#4295f5">float</span>> <r: <span style="color:#4295f5">float</span>> <g: <span style="color:#4295f5">float</span>> <b: <span style="color:#4295f5">float</span>> <a: <span style="color:#4295f5">float</span>>
+- rect <x: <span style="color:#4295f5">int</span>> <y: <span style="color:#4295f5">int</span>> <w: <span style="color:#4295f5">int</span>> <h: <span style="color:#4295f5">int</span>> <material: <span style="color:#4295f5">string</span>> <r: <span style="color:#4295f5">float</span>> <g: <span style="color:#4295f5">float</span>> <b: <span style="color:#4295f5">float</span>> <a: <span style="color:#4295f5">float</span>>
+- bind_cmd <key: <span style="color:#4295f5">string</span>> <command: <span style="color:#4295f5">string</span>>
+- unbind_cmd <key: <span style="color:#4295f5">string</span>>
+- old binding commands such as +melee if the game loads them
 
-#### Call of Duty - Modern Warfare 3 ( Untested )
-- cfge_vstr &lt;variablename&gt;
-- cfge_iprintln &lt;message&gt;
-- cfge_iprintlnbold &lt;message&gt;
-- cfge_execfromdisk &lt;filepath&gt;
-- cfge_dvar_string &lt;dvar&gt; &lt;value&gt;
-- cfge_dvar_int &lt;dvar&gt; &lt;value&gt; &lt;min&gt; &lt;max&gt;
-- cfge_dvar_float &lt;dvar&gt; &lt;value&gt; &lt;min&gt; &lt;max&gt;
-- cfge_dvar_bool &lt;dvar&gt; &lt;value&gt;
-- cfge_dvar_vector &lt;dvar&gt; &lt;x&gt; &lt;y&gt; &lt;z&gt; &lt;min&gt; &lt;max&gt;
-- cfge_dvar_vectorcolor &lt;dvar&gt; &lt;x&gt; &lt;y&gt; &lt;z&gt; &lt;max&gt;
-- cfge_dump_commands
-- cfge_dump_dvar
-- cfge_mem_char &lt;offset&gt; &lt;byte&gt;
-- cfge_mem_int &lt;offset&gt; &lt;value&gt;
-- cfge_mem_float &lt;offset&gt; &lt;value&gt;
-- cfge_text &lt;text&gt; &lt;x&gt; &lt;y&gt; &lt;font&gt; &lt;size&gt; &lt;r&gt; &lt;g&gt; &lt;b&gt; &lt;a&gt;
-- cfge_clear_texts
-- cfge_rect &lt;x&gt; &lt;y&gt; &lt;w&gt; &lt;h&gt; &lt;material&gt; &lt;r&gt; &lt;g&gt; &lt;b&gt; &lt;a&gt;
-- cfge_clear_rects
-- cfge_bind_cmd &lt;key&gt; &lt;command&gt;
-- cfge_unbind_cmd &lt;key&gt;
+#### Supported Dvars:
+- unlock_dlc_content: allows on cod ghost the usage of any skin, camo ( by default on )
+- unlock_any_attachment_combo: allows on cod ghost to use multpile sights and so on ( by default on )
+
+#### File Explanations ( if exist in tmp ):
+- on_start.cfg: will be auto loaded by the sprx if it exist in tmp
+- cfg_extender.log: contains any error message that happend within the sprx, such as wrong calls to custom commands
+- cfg_extender.command_dump: includes the commands dumped with dump_commands
+- cfg_extender.dvar_dump: includes the dvars dumped with dump_dvar
 
 ### How to build
 1. Take all Files for the Game you want to build the .sprx.

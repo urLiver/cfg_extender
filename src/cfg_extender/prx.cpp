@@ -36,13 +36,13 @@ extern "C" int Entry( void )
 		{
 			global_current_game = Games_Ghost;
 
-			WebmanNotify( "Game: CoD Ghost ( Multiplayer )" );
+			WebmanNotify( "Detected: Ghost ( Mp )" );
 		}
 		else if( IsCodMw3() )
 		{
 			global_current_game = Games_Mw3;
 
-			WebmanNotify( "Game: CoD Modern Warfare 3 ( Multiplayer )" );
+			WebmanNotify( "Detected: Modern Warfare 3 ( Mp )" );
 		}
 
 		OnStart();

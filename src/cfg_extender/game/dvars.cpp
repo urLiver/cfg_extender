@@ -259,6 +259,27 @@ float Dvar_GetFloat( const char* dvarName )
     }
 }
 
+bool Dvar_GetBool( const char* dvarName )
+{
+    static libpsutil::symbol<bool( const char* dvarName )> Dvar_GetBool_Ghost{ 0x5D4B8C };
+    static libpsutil::symbol<bool( const char* dvarName )> Dvar_GetBool_Mw3{ 0x291060 };
+
+    switch( global_current_game )
+    {
+        case Games_Ghost:
+            return Dvar_GetBool_Ghost( dvarName );
+        break;
+        case Games_Mw3:
+            return Dvar_GetBool_Mw3( dvarName );
+        break;
+        default:
+            LogWrite( "Dvar_GetBool: called, but no game case defined for %i", ( int )global_current_game );
+
+            return 0;
+        break;
+    }
+}
+
 void Dvar_SetIntByName( const char* dvarName, int value )
 {
     static libpsutil::symbol<void( const char* dvarName, int value )> Dvar_SetIntByName_Ghost{ 0x6C19C8 };

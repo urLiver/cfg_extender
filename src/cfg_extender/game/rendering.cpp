@@ -1,25 +1,5 @@
 #include "rendering.hpp"
 
-static void* R_RegisterFont( const char *name, int imageTrack )
-{
-    static libpsutil::symbol<void*( const char *name, int imageTrack )> R_RegisterFont_Ghost{ 0x459C6C };
-    static libpsutil::symbol<void*( const char *name, int imageTrack )> R_RegisterFont_Mw3{ 0x3808B8 };
-
-    switch( global_current_game )
-    {
-        case Games_Ghost:
-            return R_RegisterFont_Ghost( name, imageTrack );
-        break;
-        case Games_Mw3:
-            return R_RegisterFont_Mw3( name, imageTrack );
-        break;
-        default:
-            LogWrite( "R_RegisterFont: called, but no game case defined for %i", ( int )global_current_game );
-            return nullptr;
-        break;
-    }
-}
-
 static void* UI_GetFontHandle( double size, int font )
 {
     static libpsutil::symbol<void*( double size, int font )> UI_GetFontHandle_Ghost{ 0x348DD0 };
@@ -60,60 +40,40 @@ static void* Material_RegisterHandle( const char *name, int imageTrack )
     }
 }
 
-static void* ScrPlace_GetActivePlacement( int localClientNum )
+static void R_AddCmdDrawText( const char* text, void* font, double x, double y, double scale, const float* color )
 {
-    static libpsutil::symbol<void*( int localClientNum )> ScrPlace_GetActivePlacement_Ghost{ 0x1B8CCC };
-    static libpsutil::symbol<void*( int localClientNum )> ScrPlace_GetActivePlacement_Mw3{ 0x1174E0 };
+    static libpsutil::symbol<void( const char *text, int maxChars, void *font, double x, double y, double xScale, double yScale, double rotation, const float *color, int style )> R_AddCmdDrawText_Ghost{ 0x473658 };
+    static libpsutil::symbol<void( const char *text, int maxChars, void *font, double x, double y, double xScale, double yScale, double rotation, const float *color, int style )> R_AddCmdDrawText_Mw3{ 0x393640 };
 
     switch( global_current_game )
     {
         case Games_Ghost:
-            return ScrPlace_GetActivePlacement_Ghost( localClientNum );
+            R_AddCmdDrawText_Ghost( text, 0x7FFFFFFF, font, x, y, scale, scale, 0, color, 0 );
         break;
         case Games_Mw3:
-            return ScrPlace_GetActivePlacement_Mw3( localClientNum );
+            R_AddCmdDrawText_Mw3( text, 0x7FFFFFFF, font, x, y, scale, scale, 0, color, 0 );
         break;
         default:
-            LogWrite( "ScrPlace_GetActivePlacement: called, but no game case defined for %i", ( int )global_current_game );
-            return nullptr;
+            LogWrite( "R_AddCmdDrawText: called, but no game case defined for %i", ( int )global_current_game );
         break;
     }
 }
 
-static void UI_DrawText( void* scrPlace, const char* text, int maxChars, void* font, double x, double y, int horzAlign, int vertAlign, double scale, const float* color, int style )
+static void R_AddCmdDrawStretchPic( double x, double y, double w, double h, const float* color, void* material )
 {
-    static libpsutil::symbol<void( void* scrPlace, const char* text, int maxChars, void* font, double x, double y, int horzAlign, int vertAlign, double scale, const float* color, int style )> UI_DrawText_Ghost{ 0x348840 };
-    static libpsutil::symbol<void( void* scrPlace, const char* text, int maxChars, void* font, double x, double y, int horzAlign, int vertAlign, double scale, const float* color, int style )> UI_DrawText_Mw3{ 0x2522B8 };
+    static libpsutil::symbol<void( float x, float y, float w, float h, float s0, float t0, float s1, float t1, const float *color, void *material )> R_AddCmdDrawStretchPic_Ghost{ 0x332078 };
+    static libpsutil::symbol<void( float x, float y, float w, float h, float s0, float t0, float s1, float t1, const float *color, void *material )> R_AddCmdDrawStretchPic_Mw3{ 0x392D78 };
 
     switch( global_current_game )
     {
         case Games_Ghost:
-            UI_DrawText_Ghost( scrPlace, text, maxChars, font, x, y, horzAlign, vertAlign, scale, color, style );
+            R_AddCmdDrawStretchPic_Ghost( x, y, w, h, 1, 1, 1, 1, color, material );
         break;
         case Games_Mw3:
-            UI_DrawText_Mw3( scrPlace, text, maxChars, font, x, y, horzAlign, vertAlign, scale, color, style );
+            R_AddCmdDrawStretchPic_Mw3( x, y, w, h, 1, 1, 1, 1, color, material );
         break;
         default:
-            LogWrite( "UI_DrawText: called, but no game case defined for %i", ( int )global_current_game );
-        break;
-    }
-}
-
-static void UI_DrawHandlePic( void* scrPlace, double x, double y, double w, double h, int horzAlign, int vertAlign, const float* color, void* material )
-{
-    static libpsutil::symbol<void( void* scrPlace, double x, double y, double w, double h, int horzAlign, int vertAlign, const float* color, void* material )> UI_DrawHandlePic_Ghost{ 0x332078 };
-    static libpsutil::symbol<void( void* scrPlace, double x, double y, double w, double h, int horzAlign, int vertAlign, const float* color, void* material )> UI_DrawHandlePic_Mw3{ 0x23A6B0 };
-
-    switch( global_current_game )
-    {
-        case Games_Ghost:
-            UI_DrawHandlePic_Ghost( scrPlace, x, y, w, h, horzAlign, vertAlign, color, material );
-        break;
-        case Games_Mw3:
-            UI_DrawHandlePic_Mw3( scrPlace, x, y, w, h, horzAlign, vertAlign, color, material );
-        break;
-        default:
-            LogWrite( "UI_DrawHandlePic: called, but no game case defined for %i", ( int )global_current_game );
+            LogWrite( "R_AddCmdDrawStretchPic: called, but no game case defined for %i", ( int )global_current_game );
         break;
     }
 }
@@ -131,7 +91,7 @@ void Render( void )
 		
 		const char* material = rect->material.c_str();
 
-		UI_DrawHandlePic( ScrPlace_GetActivePlacement( rect->localclientnum ), rect->x, rect->y, rect->w, rect->h, 4, 4, rect->color, Material_RegisterHandle( material, 0 ) );
+		R_AddCmdDrawStretchPic( rect->x, rect->y, rect->w, rect->h, rect->color, Material_RegisterHandle( material, 0 ) );
 	}
 
 	for( int i = 0; i < texts.size(); i++ )
@@ -144,25 +104,8 @@ void Render( void )
 		display_text* text = &texts[ i ];
 		
 		const char* str = text->text.c_str();
-		const char* font = text->font.c_str();
-
-		UI_DrawText( ScrPlace_GetActivePlacement( text->localclientnum ), str, 0x7FFFFFFF, R_RegisterFont( font, 0 ), text->x, text->y, 4, 4, text->font_size, text->color, 0 );
-	}
-
-	for( int i = 0; i < prints.size(); i++ )
-	{
-		if( clear_prints != -1 && i < clear_prints )
-		{
-			continue;
-		}
-
-		print* print = &prints[ i ];
 		
-		const char* str = print->text.c_str();
-
-		static float white[ 4 ] = { 1.0f, 1.0f, 1.0f, 1.0f };
-
-		UI_DrawText( ScrPlace_GetActivePlacement( print->localclientnum ), str, 0x7FFFFFFF, UI_GetFontHandle( print->font_size, print->font ), print->x, print->y, 4, 4, print->font_size, white, 0 );
+		R_AddCmdDrawText( str, UI_GetFontHandle( text->font_size, text->font ), text->x, text->y, text->font_size, text->color );
 	}
 		
 	if( clear_texts != -1 )
@@ -178,28 +121,20 @@ void Render( void )
 		
 		clear_rects = -1;
 	}
-
-	if( clear_prints != -1 )
-	{
-		prints.erase( prints.begin(), prints.begin() + clear_prints );
-		
-		clear_prints = -1;
-	}
 }
 
-void AddText( int localclientnum, const char* text, int x, int y, const char* font, float font_size, float r, float g, float b, float a )
+void AddText( const char* text, int x, int y, int font, float font_size, float r, float g, float b, float a )
 {
 	display_text new_text;
 	new_text.text = std::string( text );
 	new_text.x = x;
 	new_text.y = y;
-	new_text.font = std::string( font );
+	new_text.font = font;
 	new_text.font_size = font_size;
 	new_text.color[ 0 ] = r;
 	new_text.color[ 1 ] = g;
 	new_text.color[ 2 ] = b;
 	new_text.color[ 3 ] = a;
-	new_text.localclientnum = localclientnum;
 
 	texts.push_back( new_text );
 }
@@ -209,7 +144,7 @@ void ClearTexts( void )
 	clear_texts = texts.size();
 }
 
-void AddRect( int localclientnum, int x, int y, int w, int h, const char* material, float r, float g, float b, float a )
+void AddRect( int x, int y, int w, int h, const char* material, float r, float g, float b, float a )
 {
 	display_rect new_rect;
 	new_rect.x = x;
@@ -221,7 +156,6 @@ void AddRect( int localclientnum, int x, int y, int w, int h, const char* materi
 	new_rect.color[ 1 ] = g;
 	new_rect.color[ 2 ] = b;
 	new_rect.color[ 3 ] = a;
-	new_rect.localclientnum = localclientnum;
 
 	rects.push_back( new_rect );
 }
@@ -229,38 +163,4 @@ void AddRect( int localclientnum, int x, int y, int w, int h, const char* materi
 void ClearRects( void )
 {
 	clear_rects = rects.size();
-}
-
-void Print( int localclientnum, const char* text )
-{
-	print new_print;
-	new_print.localclientnum = localclientnum;
-	new_print.text = std::string( text );
-	new_print.x = Dvar_GetInt( "cfge_print_x" );
-	new_print.font = Dvar_GetInt( "cfge_print_font" );
-	new_print.font_size = Dvar_GetFloat( "cfge_print_size" );
-	
-	if( print_y == -1 )
-	{
-		new_print.y = Dvar_GetInt( "cfge_print_y" );
-			
-		print_y = new_print.y;
-	}
-	else
-	{
-		new_print.y = print_y;
-	}
-
-	print_y += Dvar_GetInt( "cfge_print_padding" );
-
-	WebmanNotify( va( "%i", new_print.font ) );
-
-	prints.push_back( new_print );
-}
-
-void ClearPrints( void )
-{
-	print_y = -1;
-
-	clear_prints = prints.size();
 }

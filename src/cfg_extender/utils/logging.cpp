@@ -58,7 +58,7 @@ void LogWrite( const char* fmt, ... )
 
     Com_vsnprintf( dest, sizeof( dest ), fmt, vargs );
     
-    size_t len = strlen(dest);
+    size_t len = strlen( dest );
     if( len > 0 && dest[ len - 1 ] != '\n' )
     {
         if( len < sizeof( dest ) - 1 )

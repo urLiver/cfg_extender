@@ -73,8 +73,4 @@ void Cmd_BindCmd( void );
 extern cmd_function_s Cmd_UnbindCmd_VAR;
 void Cmd_UnbindCmd( void );
 	
-extern cmd_function_s Cmd_ClearPrints_VAR;
-void Cmd_ClearPrints( void );
-
-extern cmd_function_s Cmd_Print_VAR;
-void Cmd_Print( void );
+void AddCustomCommands( void );

@@ -39,6 +39,8 @@ int Dvar_GetInt( const char* dvarName );
 
 float Dvar_GetFloat( const char* dvarName );
 
+bool Dvar_GetBool( const char* dvarName );
+
 void Dvar_SetIntByName( const char* dvarName, int value );
 
 int Dvar_GetType( const void* dvar );

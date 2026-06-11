@@ -8,56 +8,13 @@
 #include "../utils/webman.hpp"
 
 namespace Cod_Ghost
-{
-	bool init = false;
-	
+{	
 	libpsutil::memory::detour* detour_Menu_PaintFullscreen;
 	void hook_Menu_PaintFullscreen( int a1 )
 	{
 		Render();
-	
+
 		detour_Menu_PaintFullscreen->invoke( a1 );
-	
-		if( ! init )
-		{
-			init = true;
-		
-			Cmd_AddCommandInternal( "cfge_vstr", Cmd_Vstr, &Cmd_Vstr_VAR );
-
-			Cmd_AddCommandInternal( "cfge_iprintln", Cmd_iPrintLn, &Cmd_iPrintLn_VAR );
-			Cmd_AddCommandInternal( "cfge_iprintlnbold", Cmd_iPrintLnBold, &Cmd_iPrintLnBold_VAR );
-
-			Cmd_AddCommandInternal( "cfge_execfromdisk", Cmd_ExecFromDisk, &Cmd_Cmd_ExecFromDisk_VAR );
-		
-			Cmd_AddCommandInternal( "cfge_dvar_string", Cmd_DvarRegisterString, &Cmd_DvarRegisterString_VAR );
-			Cmd_AddCommandInternal( "cfge_dvar_int", Cmd_DvarRegisterInt, &Cmd_DvarRegisterInt_VAR );
-			Cmd_AddCommandInternal( "cfge_dvar_float", Cmd_DvarRegisterFloat, &Cmd_DvarRegisterFloat_VAR );
-			Cmd_AddCommandInternal( "cfge_dvar_bool", Cmd_DvarRegisterBool, &Cmd_DvarRegisterBool_VAR );
-			Cmd_AddCommandInternal( "cfge_dvar_vector", Cmd_DvarRegisterVector, &Cmd_DvarRegisterVector_VAR );
-			Cmd_AddCommandInternal( "cfge_dvar_vectorcolor", Cmd_DvarRegisterVectorColor, &Cmd_DvarRegisterVectorColor_VAR );
-		
-			Cmd_AddCommandInternal( "cfge_dump_commands", Cmd_DumpCommands, &Cmd_DumpCommands_VAR );
-			Cmd_AddCommandInternal( "cfge_dump_dvar", Cmd_DumpDvars, &Cmd_DumpDvars_VAR );
-		
-			Cmd_AddCommandInternal( "cfge_mem_char", Cmd_MemChar, &Cmd_MemChar_VAR );
-			Cmd_AddCommandInternal( "cfge_mem_int", Cmd_MemInt, &Cmd_MemInt_VAR );
-			Cmd_AddCommandInternal( "cfge_mem_float", Cmd_MemFloat, &Cmd_MemFloat_VAR );
-		
-			Cmd_AddCommandInternal( "cfge_clear_texts", Cmd_ClearTexts, &Cmd_ClearTexts_VAR );
-			Cmd_AddCommandInternal( "cfge_clear_rects", Cmd_ClearRects, &Cmd_ClearRects_VAR );
-			Cmd_AddCommandInternal( "cfge_text", Cmd_Text, &Cmd_Text_VAR );
-			Cmd_AddCommandInternal( "cfge_rect", Cmd_Rect, &Cmd_Rect_VAR );
-		
-			Cmd_AddCommandInternal( "cfge_bind_cmd", Cmd_BindCmd, &Cmd_BindCmd_VAR );
-			Cmd_AddCommandInternal( "cfge_unbind_cmd", Cmd_UnbindCmd, &Cmd_UnbindCmd_VAR );
-			
-			Cmd_AddCommandInternal( "cfge_print", Cmd_Print, &Cmd_Print_VAR );
-			Cmd_AddCommandInternal( "cfge_clear_prints", Cmd_ClearPrints, &Cmd_ClearPrints_VAR );
-		
-			AddBindingCommands();
-
-			WebmanNotify( "Loaded Commands" );
-		}
 	}
 
 	libpsutil::memory::detour* detour_CG_TranslateGamepadButton;
@@ -79,13 +36,50 @@ namespace Cod_Ghost
 	libpsutil::memory::detour* detour_Entitlements_IsIDUnlocked;
 	bool hook_Entitlements_IsIDUnlocked( int controllerindex, int a2 )
 	{
-		return true;
+		return Dvar_GetBool( "unlock_dlc_content" ) ? true : detour_Entitlements_IsIDUnlocked->invoke<bool>( controllerindex, a2 );
 	}
 
 	libpsutil::memory::detour* detour_Content_DoWeHaveDLCPackByName;
 	bool hook_Content_DoWeHaveDLCPackByName( int controllerindex, unsigned int a2 )
 	{
-		return true;
+		return Dvar_GetBool( "unlock_dlc_content" ) ? true : detour_Content_DoWeHaveDLCPackByName->invoke<bool>( controllerindex, a2 );
+	}
+
+	struct __declspec(align(8)) StringTableCell
+	{
+		const char *string;
+		int hash;
+	};
+
+	struct StringTable
+	{
+		const char *name;
+		int columnCount;
+		int rowCount;
+		StringTableCell *values;
+	};
+	
+	libpsutil::memory::detour* detour_StringTable_GetAsset;
+	void hook_StringTable_GetAsset( const char *filename, StringTable **tablePtr )
+	{
+		detour_StringTable_GetAsset->invoke( filename, tablePtr );
+	
+		StringTable* table = *tablePtr;
+
+		if( Dvar_GetBool( "unlock_any_attachment_combo" ) && ! strcmp( "mp/attachmentCombos.csv", filename ) )
+		{
+			for( int row = 0; row < table->rowCount; row++ )
+			{
+				for ( int col = 0; col < table->columnCount; col++ )
+				{
+					if( ! strcmp( table->values[ row * table->columnCount + col ].string, "no" ) )
+					{
+						table->values[ row * table->columnCount + col ].string = "";
+						table->values[ row * table->columnCount + col ].hash = 0;
+					}
+				}
+			}
+		}
 	}
 
 	void OnStart( void )
@@ -108,11 +102,7 @@ namespace Cod_Ghost
 		Dvar_SetIntByName( "igs_s1", 1 );
 		Dvar_SetIntByName( "igs_crossgame", 1 );
 		
-		Dvar_RegisterInt( "cfge_print_font", 2, 2, 10, 0 );
-		Dvar_RegisterFloat( "cfge_print_size", 0.5f, 0.1f, 10.0f, 0 );
-		Dvar_RegisterInt( "cfge_print_x", 150, 0, 640, 0 );
-		Dvar_RegisterInt( "cfge_print_y", 100, 0, 640, 0 );
-		Dvar_RegisterInt( "cfge_print_padding", 20, 0, 200, 0 );
+		detour_StringTable_GetAsset = new libpsutil::memory::detour( static_cast<int>( 0x382888 ), hook_StringTable_GetAsset );
 
 		detour_Menu_PaintFullscreen = new libpsutil::memory::detour( static_cast<int>( 0x36DBC4 ), hook_Menu_PaintFullscreen );
 		detour_CG_TranslateGamepadButton = new libpsutil::memory::detour( static_cast<int>( 0x15925C ), hook_CG_TranslateGamepadButton );
@@ -123,6 +113,8 @@ namespace Cod_Ghost
 
 	void OnStop( void )
 	{
+		detour_StringTable_GetAsset->~detour();
+
 		detour_Menu_PaintFullscreen->~detour();
 		detour_CG_TranslateGamepadButton->~detour();
 
@@ -133,52 +125,12 @@ namespace Cod_Ghost
 
 namespace Cod_Mw3
 {
-	bool init = false;
-
 	libpsutil::memory::detour* detour_Menu_PaintFullscreen;
 	void hook_Menu_PaintFullscreen( int a1 )
 	{
 		Render();
-	
+
 		detour_Menu_PaintFullscreen->invoke( a1 );
-	
-		if( ! init )
-		{
-			init = true;
-		
-			Cmd_AddCommandInternal( "cfge_vstr", Cmd_Vstr, &Cmd_Vstr_VAR );
-
-			Cmd_AddCommandInternal( "cfge_iprintln", Cmd_iPrintLn, &Cmd_iPrintLn_VAR );
-			Cmd_AddCommandInternal( "cfge_iprintlnbold", Cmd_iPrintLnBold, &Cmd_iPrintLnBold_VAR );
-
-			Cmd_AddCommandInternal( "cfge_execfromdisk", Cmd_ExecFromDisk, &Cmd_Cmd_ExecFromDisk_VAR );
-		
-			Cmd_AddCommandInternal( "cfge_dvar_string", Cmd_DvarRegisterString, &Cmd_DvarRegisterString_VAR );
-			Cmd_AddCommandInternal( "cfge_dvar_int", Cmd_DvarRegisterInt, &Cmd_DvarRegisterInt_VAR );
-			Cmd_AddCommandInternal( "cfge_dvar_float", Cmd_DvarRegisterFloat, &Cmd_DvarRegisterFloat_VAR );
-			Cmd_AddCommandInternal( "cfge_dvar_bool", Cmd_DvarRegisterBool, &Cmd_DvarRegisterBool_VAR );
-			Cmd_AddCommandInternal( "cfge_dvar_vector", Cmd_DvarRegisterVector, &Cmd_DvarRegisterVector_VAR );
-			Cmd_AddCommandInternal( "cfge_dvar_vectorcolor", Cmd_DvarRegisterVectorColor, &Cmd_DvarRegisterVectorColor_VAR );
-		
-			Cmd_AddCommandInternal( "cfge_dump_commands", Cmd_DumpCommands, &Cmd_DumpCommands_VAR );
-			Cmd_AddCommandInternal( "cfge_dump_dvar", Cmd_DumpDvars, &Cmd_DumpDvars_VAR );
-		
-			Cmd_AddCommandInternal( "cfge_mem_char", Cmd_MemChar, &Cmd_MemChar_VAR );
-			Cmd_AddCommandInternal( "cfge_mem_int", Cmd_MemInt, &Cmd_MemInt_VAR );
-			Cmd_AddCommandInternal( "cfge_mem_float", Cmd_MemFloat, &Cmd_MemFloat_VAR );
-		
-			Cmd_AddCommandInternal( "cfge_clear_texts", Cmd_ClearTexts, &Cmd_ClearTexts_VAR );
-			Cmd_AddCommandInternal( "cfge_clear_rects", Cmd_ClearRects, &Cmd_ClearRects_VAR );
-			Cmd_AddCommandInternal( "cfge_text", Cmd_Text, &Cmd_Text_VAR );
-			Cmd_AddCommandInternal( "cfge_rect", Cmd_Rect, &Cmd_Rect_VAR );
-		
-			Cmd_AddCommandInternal( "cfge_bind_cmd", Cmd_BindCmd, &Cmd_BindCmd_VAR );
-			Cmd_AddCommandInternal( "cfge_unbind_cmd", Cmd_UnbindCmd, &Cmd_UnbindCmd_VAR );
-		
-			AddBindingCommands();
-
-			WebmanNotify( "Loaded Commands" );
-		}
 	}
 
 	libpsutil::memory::detour* detour_CG_TranslateGamepadButton;
@@ -210,6 +162,16 @@ namespace Cod_Mw3
 	}
 }
 
+void AddCommands( void )
+{
+	AddCustomCommands();
+
+	AddBindingCommands();
+
+	Dvar_RegisterBool( "unlock_dlc_content", 1, 0 );
+	Dvar_RegisterBool( "unlock_any_attachment_combo", 1, 0 );
+}
+
 void OnStart( void )
 {
     switch( global_current_game )
@@ -222,8 +184,17 @@ void OnStart( void )
 		break;
         default:
             LogWrite( "OnStart: called, but no game case defined for %i", ( int )global_current_game );
+
+			return;
         break;
     }
+	
+	AddCommands();
+
+	if( libpsutil::filesystem::file_exists( "/dev_hdd0/tmp/on_start.cfg" ) )
+	{
+		Cbuf_AddText( 0, ";execfromdisk \"/dev_hdd0/tmp/on_start.cfg\";" );
+	}
 }
 
 void OnStop( void )
